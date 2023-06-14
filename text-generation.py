@@ -12,10 +12,13 @@ print(resultsEN)
 
 # 文本生成中文示例
 # pip3 install jieba
-from transformers import TextGenerationPipeline, AutoTokenizer, AutoModelWithLMHead
+from transformers import CpmAntTokenizer, CpmAntForCausalLM
 
-tokenizer = AutoTokenizer.from_pretrained("TsinghuaAI/CPM-Generate")
-model = AutoModelWithLMHead.from_pretrained("TsinghuaAI/CPM-Generate")
+texts = "今天天气不错，"
+model = CpmAntForCausalLM.from_pretrained("openbmb/cpm-ant-10b", mirror='tuna')
+tokenizer = CpmAntTokenizer.from_pretrained("openbmb/cpm-ant-10b", mirror='tuna')
+input_ids = tokenizer(texts, return_tensors="pt")
+outputs = model.generate(**input_ids)
+output_texts = tokenizer.batch_decode(outputs)
 
-text_generator = TextGenerationPipeline(model, tokenizer)
-text_generator('清华大学', max_length=50, do_sample=True, top_p=0.9)
+print(output_texts)
