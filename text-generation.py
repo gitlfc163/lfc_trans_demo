@@ -11,6 +11,7 @@ print(resultsEN)
 
 
 # 文本生成中文示例
+
 # pip3 install jieba
 from transformers import CpmAntTokenizer, CpmAntForCausalLM
 
