@@ -13,7 +13,7 @@
 # 文本生成中文示例
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
-tokenizer = AutoTokenizer.from_pretrained("openbmb/cpm-bee-2b", trust_remote_code=True)
-model = AutoModelForCausalLM.from_pretrained("openbmb/cpm-bee-2b", trust_remote_code=True) # 
+tokenizer = AutoTokenizer.from_pretrained("openbmb/cpm-bee-1b", trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained("openbmb/cpm-bee-1b", trust_remote_code=True) # 
 result = model.generate({"input": "今天天气不错，", "<ans>": ""}, tokenizer)
 print(result)
