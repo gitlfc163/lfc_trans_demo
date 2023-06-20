@@ -1,3 +1,6 @@
+
+# pip install -U scikit-learn
+
 import evaluate
 from datasets import load_dataset
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, DataCollatorWithPadding, TrainingArguments, Trainer
@@ -23,6 +26,7 @@ tokenized_datasets = datasets.map(process_function, batched=True)
 # 构建评估函数
 accuracy_metric = evaluate.load("accuracy")
 
+# 定义
 def compute_metrics(eval_pred):
     predictions, labels = eval_pred
     predictions = predictions.argmax(axis=-1)
@@ -31,6 +35,7 @@ def compute_metrics(eval_pred):
 # 训练器配置
 model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
 
+# TrainingArguments
 args = TrainingArguments(
     learning_rate=2e-5,
     per_device_train_batch_size=32,
@@ -42,10 +47,11 @@ args = TrainingArguments(
     evaluation_strategy = "epoch",
     save_strategy = "epoch",
     load_best_model_at_end=True,
-    metric_for_best_model="accuracy",
-    fp16=True
+    metric_for_best_model="accuracy"
+    # fp16=True 是否使用16位混合算法
 )
 
+# Trainer配置
 trainer = Trainer(
     model,
     args,
